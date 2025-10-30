@@ -13,6 +13,23 @@ public:
 	explicit CCButton(QWidget* parentWidget = nullptr);
 	~CCButton();
 
+	void setTextColor(const QColor baseColor, bool autoContrast = false);
+	void setBackGroundColor(const QColor baseColor, bool autoContrast = false);
+
+	/**
+	 * @brief setBorderWidth set the boarder Width
+	 * @param width
+	 */
+	void setBorderWidth(qreal width);
+
+	/**
+	 * @brief setBorderColor set the Boarder Color
+	 * @param color
+	 */
+	void setBorderColor(const QColor& color);
+
+	bool setStyle(const char* style_type);
+
 protected:
 	CONTEXT_PAINT_MOUSEEVENT_REQUEST_OVERRIDE;
 	CONTEXT_PAINT_RESIZEEVENT_REQUEST_OVERRIDE;

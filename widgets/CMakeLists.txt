@@ -20,6 +20,7 @@ set(COMMON_SRC
   Commons/animation_helpers.h Commons/animation_helpers.cpp
   setups/paintcontextregisters.h setups/paintcontextregisters.cpp
   CCWidgets_BuildDefine.h
+  Commons/TextIndiator.h
 )
 
 set(CCSlider_SRC
@@ -35,27 +36,35 @@ set(THEME_SUPPORT_SRC
   themes/material/MaterialThemeMarker.h
   themes/material/buttonmaterialpaintcontext.h
   themes/material/buttonmaterialpaintcontext.cpp
+  themes/material/animation_wrapper/hoveranimationhelper.h themes/material/animation_wrapper/hoveranimationhelper.cpp
+  themes/material/animation_wrapper/shadowoffsetsanimationhelper.h themes/material/animation_wrapper/shadowoffsetsanimationhelper.cpp
+  themes/material/animation_wrapper/rippleanimation.h themes/material/animation_wrapper/rippleanimation.cpp
+  themes/material/materialtextindicator.h themes/material/materialtextindicator.cpp
 )
 
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
 
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
   ${COMMON_SRC}
   ${CCSlider_SRC}
   ${CCButton_SRC}
-  themes/material/animation_wrapper/hoveranimationhelper.h themes/material/animation_wrapper/hoveranimationhelper.cpp
-  themes/material/animation_wrapper/shadowoffsetsanimationhelper.h themes/material/animation_wrapper/shadowoffsetsanimationhelper.cpp
-  themes/material/animation_wrapper/rippleanimation.h themes/material/animation_wrapper/rippleanimation.cpp
-  themes/material/materialtextindicator.h themes/material/materialtextindicator.cpp
-  Commons/TextIndiator.h
+  CCButton/buttonpaintcontext.h CCButton/buttonpaintcontext.cpp
+  themes/material/MaterialPropertyString.h
+  Commons/property_string.h
+  CCCards/cccard.h CCCards/cccard.cpp
+  CCCards/privates/cccardactions.h CCCards/privates/cccardactions.cpp
+  CCCards/privates/cccardcontent.h CCCards/privates/cccardcontent.cpp
+  CCCards/privates/cccardheader.h CCCards/privates/cccardheader.cpp
+  themes/material/animation_wrapper/opacityanimation.h themes/material/animation_wrapper/opacityanimation.cpp
+  CCLabel/cclabel.h CCLabel/cclabel.cpp
+  themes/material/labelmaterialpaintcontext.h themes/material/labelmaterialpaintcontext.cpp
+  CCLabel/labelpaintcontext.h CCLabel/labelpaintcontext.cpp
+  CCLabel/ccbadgelabel.h CCLabel/ccbadgelabel.cpp
+  themes/material/labelbadgematerialpaintcontext.h themes/material/labelbadgematerialpaintcontext.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
-target_include_directories(CCWidgets PUBLIC . Commons CCSlider CCButton)
+
+target_include_directories(CCWidgets PUBLIC .
+  Commons CCSlider CCButton CCCards CCLabel)
 target_compile_definitions(CCWidgets PRIVATE CCWIDGET_LIBRARY_BUILD)

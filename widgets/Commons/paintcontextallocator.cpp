@@ -26,6 +26,10 @@ void PaintContextAllocator::setStyles(const QString& current_style) {
 	emit styleChanged(current_style);
 }
 
+TextIndiator* PaintContextAllocator::text_indicator() const {
+	return textIndicator.get();
+}
+
 PaintContext* PaintContextAllocator::allocate_paintContext(
     const QString& paintContextName, QWidget* who, ActPolicy policy) {
 	QString check;

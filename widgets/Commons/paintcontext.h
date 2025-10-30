@@ -51,6 +51,11 @@ public:
 
 	virtual bool checkContextAvalible();
 
+	virtual bool propertySettings(const QString property, const QVariant value);
+	virtual std::optional<QVariant> propertyGet(const QString property);
+
+	virtual QSize sizeHint() const;
+
 	QString context_name() const noexcept {
 		return _context_name;
 	};

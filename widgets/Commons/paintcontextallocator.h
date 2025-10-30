@@ -1,11 +1,12 @@
 #ifndef PAINTCONTEXTALLOCATOR_H
 #define PAINTCONTEXTALLOCATOR_H
+#include "CCWidgets_BuildDefine.h"
 #include "TextIndiator.h"
 #include "paintcontext.h"
 #include <QMap>
 
 namespace CCWidgetLibrary {
-class PaintContextAllocator : public QObject {
+class CCWIDGET_EXPORT PaintContextAllocator : public QObject {
 	Q_OBJECT
 public:
 	friend class PaintContextRegisters;

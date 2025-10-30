@@ -1,10 +1,10 @@
 #ifndef BUTTONMATERIALPAINTCONTEXT_H
 #define BUTTONMATERIALPAINTCONTEXT_H
 
-#include "animation_helpers.h"
 #include "animation_wrapper/hoveranimationhelper.h"
 #include "animation_wrapper/shadowoffsetsanimationhelper.h"
 #include "button.h"
+#include "buttonpaintcontext.h"
 #include "paintcontext.h"
 #include "themes/material/MaterialThemeMarker.h"
 #include "themes/material/animation_wrapper/rippleanimation.h"
@@ -14,7 +14,7 @@
 class QPushButton;
 
 namespace CCWidgetLibrary {
-class ButtonMaterialPaintContext : public PaintContext,
+class ButtonMaterialPaintContext : public ButtonPaintContext,
                                    public MaterialThemeMarker {
 	Q_OBJECT
 
@@ -31,8 +31,18 @@ public:
 	void handleResizeEvent(const QResizeEvent* ev) override;
 	void handleHoverEvent(const HoverEventType type, QEvent* ev) override;
 
-	void setBackgroundColor(const QColor& c, bool autoContrast = false);
-	void setTextColor(const QColor& c, bool autoContrast = false);
+	void setBackgroundColor(const QColor& c, bool autoContrast = false) override;
+	void setTextColor(const QColor& c, bool autoContrast = false) override;
+
+	bool propertySettings(const QString property, const QVariant value) override;
+	std::optional<QVariant> propertyGet(const QString property) override;
+
+	void setBorderColor(const QColor& c) override;
+	void setBorderWidth(qreal w) override;
+
+private:
+	void applyTickedSession(QPainter& p);
+	void drawIconAndText(QPainter& p);
 
 private:
 	HoverColorAnimation* hover_animation_helper;
@@ -45,6 +55,9 @@ private:
 
 	QColor backgroundColor_ { BKCOLOR };
 	QColor textColor_ { Qt::white };
+
+	QColor borderColor_ = Qt::transparent;
+	qreal borderWidth_ = 0.0;
 };
 }
 

@@ -9,6 +9,8 @@ class DemoGallary;
 }
 QT_END_NAMESPACE
 
+class DemoGalleryTabHelper;
+
 class DemoGallary : public QMainWindow {
 	Q_OBJECT
 
@@ -17,6 +19,7 @@ public:
 	~DemoGallary();
 
 private:
+	DemoGalleryTabHelper* tabHelpers;
 	Ui::DemoGallary* ui;
 };
 #endif // DEMOGALLARY_H

@@ -35,8 +35,11 @@ public:
 		QVariant end;
 	};
 
-	AnimationHelper& applySettings(std::function<void(SettingsConfig&)> conf);
-	AnimationHelper& applySession(std::function<void(RuntimeConfig&)> conf);
+	using ApplySettingsHandler = std::function<void(SettingsConfig&)>;
+	using ApplyConfigHandler = std::function<void(RuntimeConfig&)>;
+
+	AnimationHelper& applySettings(ApplySettingsHandler conf);
+	AnimationHelper& applySession(ApplyConfigHandler conf);
 
 private:
 	QPointer<QVariantAnimation> holding_src {};

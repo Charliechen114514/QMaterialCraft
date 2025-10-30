@@ -16,10 +16,11 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="CCButton" name="btn_widget" native="true"/>
-    </item>
-    <item>
-     <widget class="CCSlider" name="widget" native="true"/>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -35,20 +36,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>CCSlider</class>
-   <extends>QWidget</extends>
-   <header>slider.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CCButton</class>
-   <extends>QWidget</extends>
-   <header>button.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

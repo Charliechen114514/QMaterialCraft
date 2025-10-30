@@ -1,9 +1,10 @@
 #include "button.h"
 #include "paintcontext.h"
 #include "paintcontextallocator.h"
+#include "property_string.h"
+#include "themes/material/buttonmaterialpaintcontext.h"
 #include <QEnterEvent>
 #include <QPainter>
-
 CCButton::CCButton(QWidget* parentWidget)
     : QPushButton(parentWidget) {
 	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
@@ -14,6 +15,45 @@ CCButton::CCButton(QWidget* parentWidget)
 }
 
 CCButton::~CCButton() {
+}
+
+void CCButton::setTextColor(const QColor baseColor, bool autoContrast) {
+	auto btn_context = dynamic_cast<CCWidgetLibrary::ButtonPaintContext*>(paintContext);
+	if (!btn_context) {
+		return; // Not valid
+	}
+
+	btn_context->setTextColor(baseColor, autoContrast);
+}
+
+void CCButton::setBackGroundColor(const QColor baseColor, bool autoContrast) {
+	auto btn_context = dynamic_cast<CCWidgetLibrary::ButtonPaintContext*>(paintContext);
+	if (!btn_context) {
+		return; // Not valid
+	}
+
+	btn_context->setBackgroundColor(baseColor, autoContrast);
+}
+
+void CCButton::setBorderWidth(qreal width) {
+	auto btn_context = dynamic_cast<CCWidgetLibrary::ButtonPaintContext*>(paintContext);
+	if (!btn_context) {
+		return; // Not valid
+	}
+	btn_context->setBorderWidth(width);
+}
+
+void CCButton::setBorderColor(const QColor& color) {
+	auto btn_context = dynamic_cast<CCWidgetLibrary::ButtonPaintContext*>(paintContext);
+	if (!btn_context) {
+		return; // Not valid
+	}
+	btn_context->setBorderColor(color);
+}
+
+bool CCButton::setStyle(const char* style_type) {
+	return paintContext->propertySettings(CCWidgetLibrary::Commons::STYLE,
+	                                      style_type);
 }
 
 void CCButton::enterEvent(QEnterEvent* event) {
@@ -29,11 +69,13 @@ void CCButton::leaveEvent(QEvent* event) {
 void CCButton::mousePressEvent(QMouseEvent* event) {
 	paintContext->handleMouseEvent(
 	    CCWidgetLibrary::MouseEventType::MOUSE_PRESS, event);
+	QPushButton::mousePressEvent(event);
 }
 
 void CCButton::mouseReleaseEvent(QMouseEvent* event) {
 	paintContext->handleMouseEvent(
 	    CCWidgetLibrary::MouseEventType::MOUSE_RELEASE, event);
+	QPushButton::mouseReleaseEvent(event);
 }
 
 void CCButton::mouseMoveEvent(QMouseEvent* event) {
@@ -42,6 +84,7 @@ void CCButton::mouseMoveEvent(QMouseEvent* event) {
 
 void CCButton::resizeEvent(QResizeEvent* event) {
 	paintContext->handleResizeEvent(event);
+	QPushButton::resizeEvent(event);
 }
 
 void CCButton::paintEvent(QPaintEvent* event) {

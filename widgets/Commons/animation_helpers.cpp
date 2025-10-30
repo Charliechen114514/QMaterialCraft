@@ -10,7 +10,7 @@ AnimationHelper::AnimationHelper(QVariantAnimation* binding_animations) {
 AnimationHelper::~AnimationHelper() {
 }
 
-AnimationHelper& AnimationHelper::applySettings(std::function<void(SettingsConfig&)> conf) {
+AnimationHelper& AnimationHelper::applySettings(ApplySettingsHandler conf) {
 	SettingsConfig config;
 	config.curve = holding_src->easingCurve();
 	config.period_time = holding_src->duration();
@@ -24,7 +24,7 @@ AnimationHelper& AnimationHelper::applySettings(std::function<void(SettingsConfi
 	return *this;
 }
 
-AnimationHelper& AnimationHelper::applySession(std::function<void(RuntimeConfig&)> conf) {
+AnimationHelper& AnimationHelper::applySession(ApplyConfigHandler conf) {
 	if (!holding_src) {
 	}
 
