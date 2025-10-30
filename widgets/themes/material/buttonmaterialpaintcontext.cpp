@@ -1,12 +1,16 @@
 #include "buttonmaterialpaintcontext.h"
+#include "animation_wrapper/floativeanimation.h"
+#include "animation_wrapper/hoveranimationhelper.h"
+#include "animation_wrapper/rippleanimation.h"
+#include "animation_wrapper/shadowoffsetsanimationhelper.h"
 #include "themes/material/material_color_helper.h"
 #include <QGraphicsDropShadowEffect>
+#include <QLayout>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPushButton>
 #include <QVariantAnimation>
-
 namespace CCWidgetLibrary {
 ButtonMaterialPaintContext::ButtonMaterialPaintContext(QPushButton* button)
     : ButtonPaintContext(button) {
@@ -15,7 +19,7 @@ ButtonMaterialPaintContext::ButtonMaterialPaintContext(QPushButton* button)
 	ripple_animation_helper = new RippleAnimation(attached_widget);
 	hover_animation_helper = new HoverColorAnimation(attached_widget);
 	shadow_animation_helper = new ShadowOffsetsAnimation(attached_widget);
-
+	float_animation_helper = new FloativeAnimation(attached_widget);
 	QPushButton* btn = qobject_cast<QPushButton*>(attached_widget);
 	if (btn) {
 		connect(btn, &QAbstractButton::toggled, attached_widget, [this](bool) {
@@ -29,11 +33,11 @@ ButtonMaterialPaintContext::~ButtonMaterialPaintContext() {
 
 bool ButtonMaterialPaintContext::paint(QPainter& p) {
 	p.save();
+	p.translate(0, (-float_animation_helper->floative_y() + shadow_animation_helper->offsetY()) / 2);
 	auto adjustments = radius / 2;
-	qreal current_offset_y = shadow_animation_helper->offsetY();
 	QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + current_offset_y, -adjustments, -adjustments + current_offset_y);
-
+	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
+	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
 	if (borderWidth_ > 0.0) {
 		qreal halfPen = borderWidth_ / 2.0;
 		rect = rect.adjusted(halfPen, halfPen, -halfPen, -halfPen);
@@ -74,7 +78,7 @@ bool ButtonMaterialPaintContext::paint(QPainter& p) {
 void ButtonMaterialPaintContext::handleMouseEvent(
     const MouseEventType type, QMouseEvent* ev) {
 	shadow_animation_helper->process_shadowoffset_action(type);
-	ripple_animation_helper->activate_with_mouse_event(type, ev);
+	ripple_animation_helper->activate_with_mouse_event(type, ev);	
 }
 
 void ButtonMaterialPaintContext::handleResizeEvent(const QResizeEvent* ev) {
@@ -83,6 +87,7 @@ void ButtonMaterialPaintContext::handleResizeEvent(const QResizeEvent* ev) {
 
 void ButtonMaterialPaintContext::handleHoverEvent(const HoverEventType type, QEvent* ev) {
 	hover_animation_helper->activate_hover_animation(type);
+	float_animation_helper->activete_with_hover(type);
 }
 
 void ButtonMaterialPaintContext::setBackgroundColor(const QColor& c, bool autoContrast) {
@@ -113,9 +118,9 @@ void ButtonMaterialPaintContext::setBorderWidth(qreal w) {
 
 void ButtonMaterialPaintContext::applyTickedSession(QPainter& p) {
 	const auto adjustments = radius / 2;
-	const qreal current_offset_y = shadow_animation_helper->offsetY();
-	const QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + current_offset_y, -adjustments, -adjustments + current_offset_y);
+	QRectF rect = attached_widget->rect().adjusted(
+	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
+	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
 
 	const qreal dotSize = std::min<qreal>(rect.height() * 0.52, 20.0);
 	const qreal leftMargin = std::max<qreal>(8.0, rect.height() * 0.12);
@@ -153,10 +158,10 @@ void ButtonMaterialPaintContext::applyTickedSession(QPainter& p) {
 
 void ButtonMaterialPaintContext::drawIconAndText(QPainter& p) {
 	QPushButton* btn = qobject_cast<QPushButton*>(attached_widget);
-	const auto adjustments = radius / 2;
-	const qreal current_offset_y = shadow_animation_helper->offsetY();
-	const QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + current_offset_y, -adjustments, -adjustments + current_offset_y);
+	auto adjustments = radius / 2;
+	QRectF rect = attached_widget->rect().adjusted(
+	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
+	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
 
 	constexpr qreal iconTextSpacing = 8.0;
 	const QString txt = btn->text();

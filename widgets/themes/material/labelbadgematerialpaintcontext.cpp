@@ -21,14 +21,11 @@ bool LabelBadgeMaterialPaintContext::paint(QPainter& p) {
 
 	QRect textRect = fm.boundingRect(text);
 
-	constexpr int paddingX = 8;
-	constexpr int paddingY = 4;
-
 	QRectF bgRect(
-	    (label->width() - textRect.width()) / 2.0 - paddingX,
-	    (label->height() - textRect.height()) / 2.0 - paddingY,
-	    textRect.width() + paddingX * 2,
-	    textRect.height() + paddingY * 2);
+	    (label->width() - textRect.width()) / 2.0 - padding_h_,
+	    (label->height() - textRect.height()) / 2.0 - padding_v_,
+	    textRect.width() + padding_h_ * 2,
+	    textRect.height() + padding_v_ * 2);
 
 	const float radius = 0.3 * std::min(bgRect.width(), bgRect.height());
 

@@ -1,19 +1,22 @@
 #ifndef BUTTONMATERIALPAINTCONTEXT_H
 #define BUTTONMATERIALPAINTCONTEXT_H
 
-#include "animation_wrapper/hoveranimationhelper.h"
-#include "animation_wrapper/shadowoffsetsanimationhelper.h"
 #include "button.h"
 #include "buttonpaintcontext.h"
 #include "paintcontext.h"
 #include "themes/material/MaterialThemeMarker.h"
-#include "themes/material/animation_wrapper/rippleanimation.h"
 #include <QColor>
 #include <QPoint>
 
 class QPushButton;
 
 namespace CCWidgetLibrary {
+
+class HoverColorAnimation;
+class ShadowOffsetsAnimation;
+class RippleAnimation;
+class FloativeAnimation;
+
 class ButtonMaterialPaintContext : public ButtonPaintContext,
                                    public MaterialThemeMarker {
 	Q_OBJECT
@@ -48,6 +51,7 @@ private:
 	HoverColorAnimation* hover_animation_helper;
 	ShadowOffsetsAnimation* shadow_animation_helper;
 	RippleAnimation* ripple_animation_helper;
+	FloativeAnimation* float_animation_helper;
 
 	qreal radius = 0.0;
 

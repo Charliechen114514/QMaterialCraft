@@ -39,7 +39,7 @@ QWidget* Gallery::createButtonGalleryWidgets(QWidget* parent) {
 	                   const QIcon& icon = QIcon(),
 	                   bool checkable = false,
 	                   bool explicitlyDisabled = false) -> CCButton* {
-		CCButton* b = new CCButton;
+		CCButton* b = new CCButton();
 		b->setText(text);
 		if (!icon.isNull())
 			b->setIcon(icon);
@@ -52,10 +52,10 @@ QWidget* Gallery::createButtonGalleryWidgets(QWidget* parent) {
 			b->setStyle(OUTLINED);
 		}
 
-		if (!size.isEmpty() && size == "small")
-			b->setFixedHeight(28);
-		if (!size.isEmpty() && size == "large")
+		if (size.isEmpty() || size == "small")
 			b->setFixedHeight(48);
+		if (!size.isEmpty() && size == "large")
+			b->setFixedHeight(68);
 		b->setMinimumWidth(100);
 
 		return b;

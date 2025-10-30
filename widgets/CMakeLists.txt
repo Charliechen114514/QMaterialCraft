@@ -43,6 +43,8 @@ set(THEME_SUPPORT_SRC
 )
 
 
+find_package(Qt6 REQUIRED COMPONENTS Core)
+
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
   ${COMMON_SRC}
@@ -61,9 +63,11 @@ add_library(CCWidgets SHARED
   CCLabel/labelpaintcontext.h CCLabel/labelpaintcontext.cpp
   CCLabel/ccbadgelabel.h CCLabel/ccbadgelabel.cpp
   themes/material/labelbadgematerialpaintcontext.h themes/material/labelbadgematerialpaintcontext.cpp
+  themes/material/animation_wrapper/floativeanimation.h themes/material/animation_wrapper/floativeanimation.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(CCWidgets PRIVATE Qt6::Core)
 
 target_include_directories(CCWidgets PUBLIC .
   Commons CCSlider CCButton CCCards CCLabel)
