@@ -13,11 +13,21 @@ void DemoGalleryTabHelper::init() {
 }
 
 #include "buttongalleries.h"
+#include "cardgallery.h"
 #include "labelgallery.h"
+#include "progressbargallery.h"
 #include "textgallery.h"
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createCardGallery(attached_tabwidget),
+			std::string_view { "Card" }
+		};
+	});
+
 	addRegistries([this]() {
 		return std::pair {
 			Gallery::createButtonGalleryWidgets(attached_tabwidget),
@@ -36,6 +46,13 @@ DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
 		return std::pair {
 			Gallery::createLabelGallery(attached_tabwidget),
 			std::string_view { "Labels" }
+		};
+	});
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createProgressBarGallery(attached_tabwidget),
+			std::string_view { "ProgressBar" }
 		};
 	});
 }

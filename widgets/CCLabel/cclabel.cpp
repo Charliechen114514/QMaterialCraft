@@ -4,7 +4,8 @@
 #include <QEnterEvent>
 #include <QPainter>
 
-CCLabel::CCLabel(QWidget* parent) {
+CCLabel::CCLabel(QWidget* parent)
+    : QLabel { parent } {
 	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
 	    WIDGET_NAME, this);
 	if (!paintContext) {

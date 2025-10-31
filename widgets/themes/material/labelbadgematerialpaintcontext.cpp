@@ -2,6 +2,7 @@
 #include "paintcontextallocator.h"
 #include <QLabel>
 #include <QPainter>
+#include <QStyle>
 
 namespace CCWidgetLibrary {
 
@@ -14,29 +15,44 @@ bool LabelBadgeMaterialPaintContext::paint(QPainter& p) {
 	p.setRenderHint(QPainter::Antialiasing);
 
 	QLabel* label = qobject_cast<QLabel*>(attached_widget);
+	if (!label)
+		return false;
 
 	const QString text = label->text();
 	const QFont font = label->font();
 	QFontMetrics fm(font);
 
 	QRect textRect = fm.boundingRect(text);
+	QRect bgRect = label->rect().adjusted(
+	    padding_h_,
+	    padding_v_,
+	    -padding_h_,
+	    -padding_v_);
 
-	QRectF bgRect(
-	    (label->width() - textRect.width()) / 2.0 - padding_h_,
-	    (label->height() - textRect.height()) / 2.0 - padding_v_,
-	    textRect.width() + padding_h_ * 2,
-	    textRect.height() + padding_v_ * 2);
+	QRect actualAcceptRect = QStyle::alignedRect(
+	    label->layoutDirection(),
+	    label->alignment(),
+	    textRect.size(),
+	    bgRect);
 
-	const float radius = 0.3 * std::min(bgRect.width(), bgRect.height());
+	QRect real_bg_rect = actualAcceptRect.adjusted(
+	    -padding_h_,
+	    -padding_v_,
+	    padding_h_,
+	    padding_v_);
+	const float radius = 0.3f * std::min(real_bg_rect.width(), real_bg_rect.height());
 
+	real_bg_rect.adjust(radius / 2, radius / 2, -radius / 2, -radius / 2);
+
+	// background
 	p.setPen(Qt::NoPen);
 	p.setBrush(bg_color_);
-	p.drawRoundedRect(bgRect, radius, radius);
+	p.drawRoundedRect(real_bg_rect, radius, radius);
 
+	// text
 	p.setPen(text_color_);
 	p.setFont(font);
-	p.drawText(label->rect(), Qt::AlignCenter, text);
-
+	p.drawText(real_bg_rect, Qt::AlignCenter, text);
 	return true;
 }
 

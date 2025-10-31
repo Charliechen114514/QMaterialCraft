@@ -25,8 +25,8 @@ public:
 private:
 	QColor bg_color_ { 0xE91E63 };
 	QColor text_color_ { Qt::white };
-	qreal padding_h_;
-	qreal padding_v_;
+	qreal padding_h_ { 12.0 };
+	qreal padding_v_ { 8.0 };
 	TextStyle style_ = TextStyle::BodyMedium;
 };
 }

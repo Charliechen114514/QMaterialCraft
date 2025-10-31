@@ -2,7 +2,8 @@
 #include "paintcontextallocator.h"
 #include <QPainter>
 #include <QPropertyAnimation>
-CCSlider::CCSlider(QWidget* parent) {
+CCSlider::CCSlider(QWidget* parent)
+    : QSlider { parent } {
 	setOrientation(Qt::Horizontal);
 	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
 	    WIDGET_NAME, this);

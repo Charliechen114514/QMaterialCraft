@@ -3,6 +3,7 @@
 #include "cclabel.h"
 
 class CCWIDGET_EXPORT CCBadgeLabel : public CCLabel {
+	Q_OBJECT
 public:
 	static constexpr const char* WIDGET_NAME = "badge-label";
 	explicit CCBadgeLabel(QWidget* parent = nullptr);

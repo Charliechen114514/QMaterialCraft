@@ -19,7 +19,7 @@ public:
 	void setTextStyle(TextStyle style) override;
 
 	void setTextColor(const QColor& color) override;
-	QColor textColor() const { return color_; }
+	QColor textColor() const override { return color_; }
 
 private:
 	TextStyle style_ = TextStyle::BodyMedium;

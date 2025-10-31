@@ -26,12 +26,13 @@ bool LabelMaterialPaintContext::paint(QPainter& p) {
 	p.setPen(color_);
 	p.setFont(attached_widget->font());
 
-	QTextOption opt(Qt::AlignLeft | Qt::AlignVCenter);
+	QLabel* label = qobject_cast<QLabel*>(attached_widget);
+
+	QTextOption opt(label->alignment());
 	opt.setWrapMode(QTextOption::WordWrap);
 
 	QRectF bounds = attached_widget->rect();
 
-	QLabel* label = qobject_cast<QLabel*>(attached_widget);
 	p.drawText(bounds, label->text(), opt);
 
 	return true;

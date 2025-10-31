@@ -33,11 +33,11 @@ ButtonMaterialPaintContext::~ButtonMaterialPaintContext() {
 
 bool ButtonMaterialPaintContext::paint(QPainter& p) {
 	p.save();
-	p.translate(0, (-float_animation_helper->floative_y() + shadow_animation_helper->offsetY()) / 2);
-	auto adjustments = radius / 2;
-	QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
-	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
+	const auto adjustments = radius / 2;
+	QRectF rect = attached_widget->rect().adjusted(adjustments, adjustments, -adjustments, -adjustments);
+	float_animation_helper->translate_for_none_clip(p, rect);
+	shadow_animation_helper->translate_for_none_clip(p, rect);
+
 	if (borderWidth_ > 0.0) {
 		qreal halfPen = borderWidth_ / 2.0;
 		rect = rect.adjusted(halfPen, halfPen, -halfPen, -halfPen);
@@ -118,9 +118,9 @@ void ButtonMaterialPaintContext::setBorderWidth(qreal w) {
 
 void ButtonMaterialPaintContext::applyTickedSession(QPainter& p) {
 	const auto adjustments = radius / 2;
-	QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
-	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
+	QRectF rect = attached_widget->rect().adjusted(adjustments, adjustments, -adjustments, -adjustments);
+	float_animation_helper->translate_rect_for_none_clip(rect);
+	shadow_animation_helper->translate_rect_for_none_clip(rect);
 
 	const qreal dotSize = std::min<qreal>(rect.height() * 0.52, 20.0);
 	const qreal leftMargin = std::max<qreal>(8.0, rect.height() * 0.12);
@@ -158,10 +158,10 @@ void ButtonMaterialPaintContext::applyTickedSession(QPainter& p) {
 
 void ButtonMaterialPaintContext::drawIconAndText(QPainter& p) {
 	QPushButton* btn = qobject_cast<QPushButton*>(attached_widget);
-	auto adjustments = radius / 2;
-	QRectF rect = attached_widget->rect().adjusted(
-	    adjustments, adjustments + float_animation_helper->getFloative_y_max() / 2,
-	    -adjustments, -adjustments - shadow_animation_helper->getMaxOffsetY() / 2);
+	const auto adjustments = radius / 2;
+	QRectF rect = attached_widget->rect().adjusted(adjustments, adjustments, -adjustments, -adjustments);
+	float_animation_helper->translate_rect_for_none_clip(rect);
+	shadow_animation_helper->translate_rect_for_none_clip(rect);
 
 	constexpr qreal iconTextSpacing = 8.0;
 	const QString txt = btn->text();

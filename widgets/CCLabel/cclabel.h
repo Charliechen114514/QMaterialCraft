@@ -7,6 +7,7 @@
 CONTEXT_PAINT_PREANNOUNCE;
 
 class CCWIDGET_EXPORT CCLabel : public QLabel {
+	Q_OBJECT
 public:
 	static constexpr const char* WIDGET_NAME = "label";
 	explicit CCLabel(QWidget* parent = nullptr);

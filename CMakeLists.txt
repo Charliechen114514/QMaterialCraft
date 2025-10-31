@@ -15,10 +15,10 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 add_subdirectory(widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        demogallary.cpp
-        demogallary.h
-        demogallary.ui
+        gallery/main.cpp
+        gallery/demogallary.cpp
+        gallery/demogallary.h
+        gallery/demogallary.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -32,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gallery/helpers/textgallery.h gallery/helpers/textgallery.cpp
         gallery/helpers/cardgallery.h gallery/helpers/cardgallery.cpp
         gallery/helpers/labelgallery.h gallery/helpers/labelgallery.cpp
+        gallery/helpers/progressbargallery.h gallery/helpers/progressbargallery.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CCWidgetLibrary APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

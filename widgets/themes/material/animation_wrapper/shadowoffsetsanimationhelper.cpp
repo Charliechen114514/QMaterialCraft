@@ -1,8 +1,8 @@
 #include "shadowoffsetsanimationhelper.h"
 #include <QGraphicsDropShadowEffect>
+#include <QPainter>
 #include <QVariantAnimation>
 #include <QWidget>
-
 namespace CCWidgetLibrary {
 ShadowOffsetsAnimation::ShadowOffsetsAnimation(QWidget* parent)
     : QObject { parent } {
@@ -51,6 +51,15 @@ void ShadowOffsetsAnimation::setoffsetY(qreal v) {
 
 qreal ShadowOffsetsAnimation::offsetY() const {
 	return offsetY_;
+}
+
+void ShadowOffsetsAnimation::translate_for_none_clip(QPainter& p, QRectF& sourceRect) {
+	p.translate(0, offsetY_ / 2);
+	sourceRect.adjust(0, 0, 0, -maxOffsetY_ / 2);
+}
+
+void ShadowOffsetsAnimation::translate_rect_for_none_clip(QRectF& sourceRect) {
+	sourceRect.adjust(0, 0, 0, -maxOffsetY_ / 2);
 }
 
 int ShadowOffsetsAnimation::shadowMargin() const {

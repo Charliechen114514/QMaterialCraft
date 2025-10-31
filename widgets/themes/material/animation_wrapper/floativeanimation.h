@@ -27,6 +27,8 @@ public:
 
 	void activete_with_hover(const HoverEventType ev);
 
+	void translate_for_none_clip(QPainter& p, QRectF& sourceRect);
+	void translate_rect_for_none_clip(QRectF& sourceRect);
 signals:
 	void floativeYChanged(qreal v);
 

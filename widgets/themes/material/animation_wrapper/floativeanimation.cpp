@@ -1,4 +1,5 @@
 #include "floativeanimation.h"
+#include <QPainter>
 #include <QWidget>
 namespace CCWidgetLibrary {
 FloativeAnimation::FloativeAnimation(QWidget* parent)
@@ -66,4 +67,12 @@ void FloativeAnimation::activete_with_hover(const HoverEventType ev) {
 	}
 }
 
+void FloativeAnimation::translate_for_none_clip(QPainter& p, QRectF& sourceRect) {
+	p.translate(0, -floative_y_ / 2);
+	sourceRect.adjust(0, floative_y_max / 2, 0, 0);
+}
+
+void FloativeAnimation::translate_rect_for_none_clip(QRectF& sourceRect) {
+	sourceRect.adjust(0, floative_y_max / 2, 0, 0);
+}
 }

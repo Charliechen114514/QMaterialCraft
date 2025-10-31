@@ -1,6 +1,6 @@
 #include "demogallary.h"
 #include "./ui_demogallary.h"
-#include "gallery/helpers/demogallerytabhelper.h"
+#include "helpers/demogallerytabhelper.h"
 
 DemoGallary::DemoGallary(QWidget* parent)
     : QMainWindow(parent)

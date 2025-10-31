@@ -35,6 +35,9 @@ public:
 	void setoffsetY(qreal v);
 	qreal offsetY() const;
 
+	void translate_for_none_clip(QPainter& p, QRectF& sourceRect);
+	void translate_rect_for_none_clip(QRectF& sourceRect);
+
 signals:
 	void shadowMarginChanged(int margin);
 	void shadowHeightChanged(int height);

@@ -11,6 +11,7 @@ CONTEXT_PAINT_PREANNOUNCE;
  *          defines Slider for the QSlider
  */
 class CCWIDGET_EXPORT CCSlider : public QSlider {
+	Q_OBJECT
 public:
 	static constexpr const char* WIDGET_NAME = "slider";
 
