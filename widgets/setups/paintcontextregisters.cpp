@@ -2,6 +2,7 @@
 #include "themes/material/MaterialThemeMarker.h"
 #include "themes/material/buttonmaterialpaintcontext.h"
 #include "themes/material/components/cardmaterialpaintcontext.h"
+#include "themes/material/components/cctextfieldmaterialpaintcontext.h"
 #include "themes/material/labelbadgematerialpaintcontext.h"
 #include "themes/material/labelmaterialpaintcontext.h"
 #include "themes/material/materialtextindicator.h"
@@ -30,6 +31,9 @@ void CCWidgetLibrary::PaintContextRegisters::
 	});
 	inst.runRegister(CardMaterialPaintContext::WIDGET_NAME, [](QWidget* who) {
 		return new CardMaterialPaintContext(who);
+	});
+	inst.runRegister(CCTextFieldMaterialPaintContext::WIDGET_NAME, [](QWidget* who) {
+		return new CCTextFieldMaterialPaintContext(dynamic_cast<CCTextField*>(who));
 	});
 }
 

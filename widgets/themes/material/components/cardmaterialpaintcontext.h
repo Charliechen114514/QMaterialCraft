@@ -30,7 +30,7 @@ private:
 private:
 	FloativeAnimation* floats;
 	ShadowOffsetsAnimation* shadows;
-	QColor backgroundColor_ = QColor { 255, 255, 255, 130 };
+	QColor backgroundColor_ = QColor { Qt::gray };
 	QColor borderColor_ = QColor { 0, 0, 0, 40 };
 	qreal borderWidth_ = 2.0;
 };

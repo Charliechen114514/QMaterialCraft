@@ -19,6 +19,9 @@ set(COMMON_SRC
   Commons/context_request_macros.h
   Commons/animation_helpers.h Commons/animation_helpers.cpp
   setups/paintcontextregisters.h setups/paintcontextregisters.cpp
+  Commons/property_string.h
+  helpers/commonwidgetsettingshelper.h helpers/commonwidgetsettingshelper.cpp
+  helpers/widgetlayouthelper.h helpers/widgetlayouthelper.cpp
   CCWidgets_BuildDefine.h
   Commons/TextIndiator.h
 )
@@ -28,7 +31,33 @@ set(CCSlider_SRC
   CCSlider/slider.h
   CCSlider/slider.cpp)
 
-set(CCButton_SRC CCButton/button.h CCButton/button.cpp)
+set(CCButton_SRC
+  CCButton/buttonpaintcontext.h CCButton/buttonpaintcontext.cpp
+  CCButton/button.h CCButton/button.cpp)
+
+set(CCCard_SRC
+  CCCards/cccard.h CCCards/cccard.cpp
+  CCCards/privates/cccardactions.h CCCards/privates/cccardactions.cpp
+  CCCards/privates/cccardcontent.h CCCards/privates/cccardcontent.cpp
+  CCCards/privates/cccardheader.h CCCards/privates/cccardheader.cpp
+  CCCards/privates/cccard_components_name.h
+)
+
+set(CCLabel_SRC
+  CCLabel/cclabel.h CCLabel/cclabel.cpp
+  CCLabel/labelpaintcontext.h CCLabel/labelpaintcontext.cpp
+  CCLabel/ccbadgelabel.h CCLabel/ccbadgelabel.cpp
+)
+
+set(CCProgressBar_SRC
+  CCProgressBar/progressbar.h CCProgressBar/progressbar.cpp
+  CCProgressBar/progressbarpaintcontext.h CCProgressBar/progressbarpaintcontext.cpp
+)
+
+set(CCTextField_SRC
+  CCTextField/cctextfield.h CCTextField/cctextfield.cpp
+  CCTextField/cctextfieldpaintcontext.h CCTextField/cctextfieldpaintcontext.cpp
+)
 
 set(THEME_SUPPORT_SRC
   themes/material/slidermaterialpaintcontext.h themes/material/slidermaterialpaintcontext.cpp
@@ -40,44 +69,33 @@ set(THEME_SUPPORT_SRC
   themes/material/animation_wrapper/shadowoffsetsanimationhelper.h themes/material/animation_wrapper/shadowoffsetsanimationhelper.cpp
   themes/material/animation_wrapper/rippleanimation.h themes/material/animation_wrapper/rippleanimation.cpp
   themes/material/materialtextindicator.h themes/material/materialtextindicator.cpp
+  themes/material/MaterialPropertyString.h
+  themes/material/labelmaterialpaintcontext.h themes/material/labelmaterialpaintcontext.cpp
+  themes/material/animation_wrapper/opacityanimation.h themes/material/animation_wrapper/opacityanimation.cpp
+  themes/material/labelbadgematerialpaintcontext.h themes/material/labelbadgematerialpaintcontext.cpp
+  themes/material/animation_wrapper/floativeanimation.h themes/material/animation_wrapper/floativeanimation.cpp
+  themes/material/progressbarmaterialpaintcontext.h themes/material/progressbarmaterialpaintcontext.cpp
+  themes/material/components/cardmaterialpaintcontext.h themes/material/components/cardmaterialpaintcontext.cpp
+  themes/material/components/cctextfieldmaterialpaintcontext.h themes/material/components/cctextfieldmaterialpaintcontext.cpp
 )
 
-
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
   ${COMMON_SRC}
   ${CCSlider_SRC}
   ${CCButton_SRC}
-  CCButton/buttonpaintcontext.h CCButton/buttonpaintcontext.cpp
-  themes/material/MaterialPropertyString.h
-  Commons/property_string.h
-  CCCards/cccard.h CCCards/cccard.cpp
-  CCCards/privates/cccardactions.h CCCards/privates/cccardactions.cpp
-  CCCards/privates/cccardcontent.h CCCards/privates/cccardcontent.cpp
-  CCCards/privates/cccardheader.h CCCards/privates/cccardheader.cpp
-  themes/material/animation_wrapper/opacityanimation.h themes/material/animation_wrapper/opacityanimation.cpp
-  CCLabel/cclabel.h CCLabel/cclabel.cpp
-  themes/material/labelmaterialpaintcontext.h themes/material/labelmaterialpaintcontext.cpp
-  CCLabel/labelpaintcontext.h CCLabel/labelpaintcontext.cpp
-  CCLabel/ccbadgelabel.h CCLabel/ccbadgelabel.cpp
-  themes/material/labelbadgematerialpaintcontext.h themes/material/labelbadgematerialpaintcontext.cpp
-  themes/material/animation_wrapper/floativeanimation.h themes/material/animation_wrapper/floativeanimation.cpp
-  CCProgressBar/progressbar.h CCProgressBar/progressbar.cpp
-  themes/material/progressbarmaterialpaintcontext.h themes/material/progressbarmaterialpaintcontext.cpp
-  helpers/widgetlayouthelper.h helpers/widgetlayouthelper.cpp
-  themes/material/components/cardmaterialpaintcontext.h themes/material/components/cardmaterialpaintcontext.cpp
-  CCCards/privates/cccard_components_name.h
-  CCProgressBar/progressbarpaintcontext.h CCProgressBar/progressbarpaintcontext.cpp
+  ${CCCard_SRC}
+  ${CCLabel_SRC}
+  ${CCProgressBar_SRC}
+  ${CCTextField_SRC}
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
-target_link_libraries(CCWidgets PRIVATE Qt6::Core)
 
 target_include_directories(CCWidgets PUBLIC .
   Commons CCSlider CCButton CCCards CCLabel CCProgressBar)

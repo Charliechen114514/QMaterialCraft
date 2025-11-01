@@ -33,6 +33,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gallery/helpers/cardgallery.h gallery/helpers/cardgallery.cpp
         gallery/helpers/labelgallery.h gallery/helpers/labelgallery.cpp
         gallery/helpers/progressbargallery.h gallery/helpers/progressbargallery.cpp
+        gallery/helpers/textfieldgallery.h gallery/helpers/textfieldgallery.cpp
+        gallery/helpers/slidergallery.h gallery/helpers/slidergallery.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CCWidgetLibrary APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

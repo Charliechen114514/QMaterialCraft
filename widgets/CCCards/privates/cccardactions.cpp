@@ -1,4 +1,5 @@
 #include "cccardactions.h"
+#include "helpers/commonwidgetsettingshelper.h"
 #include <QEnterEvent>
 #include <QHBoxLayout>
 #include <QPainter>
@@ -11,11 +12,16 @@ CCCardActions::CCCardActions(QWidget* parent)
 	scrollArea->setWidgetResizable(true);
 	scrollArea->setWidget(container);
 	scrollArea->setFrameShape(QFrame::NoFrame);
-	scrollArea->setStyleSheet("background: transparent");
+
+	// following codes will set the scroll area transparent
+	CCWidgetLibrary::WidgetHelpers::
+	    setWidgetBackgroundTransparent(scrollArea->viewport());
+
 	QHBoxLayout* hLayout = new QHBoxLayout(container);
 	hLayout->setContentsMargins(16, 8, 16, 8);
 	container->setLayout(hLayout);
 	hLayout->setAlignment(Qt::AlignCenter);
+
 	auto suml = new QHBoxLayout(this);
 	suml->setContentsMargins(0, 0, 0, 0);
 	suml->addWidget(scrollArea);

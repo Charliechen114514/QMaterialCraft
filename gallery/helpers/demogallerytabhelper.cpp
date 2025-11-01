@@ -16,10 +16,26 @@ void DemoGalleryTabHelper::init() {
 #include "cardgallery.h"
 #include "labelgallery.h"
 #include "progressbargallery.h"
+#include "slidergallery.h"
+#include "textfieldgallery.h"
 #include "textgallery.h"
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createTextFieldGallery(attached_tabwidget),
+			std::string_view { "TextField" }
+		};
+	});
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createSliderGalleryWidgets(attached_tabwidget),
+			std::string_view { "Slider" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {
