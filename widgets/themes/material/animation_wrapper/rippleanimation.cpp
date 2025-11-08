@@ -28,6 +28,10 @@ void RippleAnimation::apply_duration(int duration_new) {
 	    });
 }
 
+void RippleAnimation::applyConfigs(AnimationHelper::ApplySettingsHandler handler) {
+	ripple_animation->get_helpers()->applySettings(handler);
+}
+
 int RippleAnimation::duration() const {
 	return ripple_animation->get_animations()->duration();
 }
@@ -36,24 +40,27 @@ void RippleAnimation::process_ripple_draw(QPainter& p, const QColor& baseColor) 
 	if (!rippleAvaiable()) {
 		return;
 	}
+	p.save();
 	QColor rippleColor = baseColor;
 	rippleColor.setAlphaF(rippleOpacity_);
 	p.setBrush(rippleColor);
 	p.setPen(Qt::NoPen);
 	p.drawEllipse(pressPosition, rippleRadius_, rippleRadius_);
+	p.restore();
 }
 
 void RippleAnimation::process_ripple_draw(QPainter& p, const QPointF center, const QColor& baseColor) {
 	if (!rippleAvaiable()) {
 		return;
 	}
-
+	p.save();
 	QColor rippleColor(baseColor);
 	rippleColor.setAlphaF(rippleOpacity_);
 	p.setBrush(rippleColor);
 
 	p.drawEllipse(center,
 	              rippleRadius_, rippleRadius_);
+	p.restore();
 }
 
 void RippleAnimation::activate_with_mouse_event(const MouseEventType e, QMouseEvent* ev) {
@@ -62,7 +69,7 @@ void RippleAnimation::activate_with_mouse_event(const MouseEventType e, QMouseEv
 		pressPosition = ev->pos();
 		ripple_animation->get_helpers()->applySession(
 		    [this](AnimationHelper::RuntimeConfig& config) {
-			    config.start = QPointF { 0.0, 0.4 };
+			    config.start = QPointF { 0.0, maxOpacity };
 			    config.end = QPointF { attached_widget->width() * 1.2, 0.0 };
 		    });
 		break;
@@ -73,12 +80,13 @@ void RippleAnimation::activate_with_mouse_event(const MouseEventType e, QMouseEv
 	}
 }
 
-void RippleAnimation::activate(const MouseEventType e, const qreal size) {
+void RippleAnimation::activate(const MouseEventType e, QMouseEvent* ev, const qreal size) {
 	switch (e) {
 	case MouseEventType::MOUSE_PRESS:
+		pressPosition = ev->pos();
 		ripple_animation->get_helpers()->applySession(
 		    [size, this](AnimationHelper::RuntimeConfig& config) {
-			    config.start = QPointF { 0.0, 0.4 };
+			    config.start = QPointF { 0.0, maxOpacity };
 			    config.end = QPointF { size, 0.0 };
 		    });
 		break;
@@ -91,6 +99,14 @@ void RippleAnimation::activate(const MouseEventType e, const qreal size) {
 
 bool RippleAnimation::rippleAvaiable() const {
 	return rippleOpacity_ > 0.0;
+}
+
+qreal RippleAnimation::getMaxOpacity() const {
+	return maxOpacity;
+}
+
+void RippleAnimation::setMaxOpacity(qreal newMaxOpacity) {
+	maxOpacity = newMaxOpacity;
 }
 
 void RippleAnimation::setRippleRadius(qreal v) {

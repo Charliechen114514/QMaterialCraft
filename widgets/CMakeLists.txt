@@ -83,6 +83,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
@@ -93,9 +94,13 @@ add_library(CCWidgets SHARED
   ${CCLabel_SRC}
   ${CCProgressBar_SRC}
   ${CCTextField_SRC}
+  CCImageWidget/ccimagewidget.h CCImageWidget/ccimagewidget.cpp
+  CCImageWidget/imagewidgetpaintcontext.h CCImageWidget/imagewidgetpaintcontext.cpp
+  themes/material/imagewidgetmaterialpaintcontext.h themes/material/imagewidgetmaterialpaintcontext.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 
 target_include_directories(CCWidgets PUBLIC .
   Commons CCSlider CCButton CCCards CCLabel CCProgressBar)

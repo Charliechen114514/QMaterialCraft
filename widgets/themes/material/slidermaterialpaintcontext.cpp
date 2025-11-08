@@ -99,7 +99,7 @@ bool SliderMaterialPaintContext::paint(QPainter& painter) {
 
 void SliderMaterialPaintContext::handleMouseEvent(
     const MouseEventType type, QMouseEvent* ev) {
-	rippleAnimation->activate(type, computeRippleTargetRadius());
+	rippleAnimation->activate(type, ev, computeRippleTargetRadius());
 	switch (type) {
 	case MouseEventType::MOUSE_PRESS:
 		handle_mouseclicked_session(ev);

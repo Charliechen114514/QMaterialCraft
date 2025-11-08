@@ -25,6 +25,8 @@ public:
 	qreal rippleRadius() const;
 	qreal rippleOpacity() const;
 
+	void applyConfigs(AnimationHelper::ApplySettingsHandler handler);
+
 	void apply_duration(int duration_new);
 	int duration() const;
 
@@ -32,8 +34,11 @@ public:
 	void process_ripple_draw(QPainter& p, const QPointF center, const QColor& baseColor);
 
 	void activate_with_mouse_event(const MouseEventType e, QMouseEvent* ev);
-	void activate(const MouseEventType e, const qreal size);
+	void activate(const MouseEventType e, QMouseEvent* ev, const qreal size);
 	bool rippleAvaiable() const;
+
+	qreal getMaxOpacity() const;
+	void setMaxOpacity(qreal newMaxOpacity);
 
 signals:
 	void rippleRadiusChanged(qreal rippleRadius);
@@ -43,6 +48,7 @@ private:
 	std::unique_ptr<AnimationHolder> ripple_animation;
 	qreal rippleRadius_ = 0.0;
 	qreal rippleOpacity_ = 0.0;
+	qreal maxOpacity { 0.4 };
 	QPointF pressPosition;
 	QWidget* attached_widget;
 };
