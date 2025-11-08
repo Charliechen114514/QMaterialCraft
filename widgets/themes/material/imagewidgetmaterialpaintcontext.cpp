@@ -1,4 +1,5 @@
 #include "imagewidgetmaterialpaintcontext.h"
+#include "MaterialPropertyString.h"
 #include "animation_wrapper/opacityanimation.h"
 #include "animation_wrapper/rippleanimation.h"
 #include <QPainter>
@@ -6,10 +7,8 @@
 namespace CCWidgetLibrary {
 
 ImageWidgetMaterialPaintContext::ImageWidgetMaterialPaintContext(
-    CCImageWidget* attached_parent)
+    class CCImageWidget* attached_parent)
     : ImageWidgetPaintContext(attached_parent) {
-	attached_widget->setAttribute(Qt::WA_OpaquePaintEvent);
-
 	ripple_animation = new RippleAnimation(attached_parent);
 	opacity_animation = new OpacityAnimation(attached_parent);
 
@@ -39,6 +38,14 @@ bool ImageWidgetMaterialPaintContext::paint(QPainter& p) {
 	QColor surface = attached_widget->palette().color(QPalette::Window);
 	p.fillRect(r, surface);
 
+	QPainterPath path;
+	QLinearGradient gradient(attached_widget->rect().topLeft(),
+	                         attached_widget->rect().bottomRight());
+	gradient.setColorAt(0.0, colorA); // Material Blue 500
+	gradient.setColorAt(1.0, colorB); // Material Indigo 400
+	path.addRoundedRect(r, radius, radius);
+	p.fillPath(path, gradient);
+
 	if (!pixmap_.isNull()) {
 		QRectF target = computePixmapTarget(pixmap_.size(), r.size());
 		target.moveCenter(r.center());
@@ -50,10 +57,6 @@ bool ImageWidgetMaterialPaintContext::paint(QPainter& p) {
 		p.setOpacity(opacity_animation->opacity());
 		p.drawPixmap(target.toRect(), pixmap_);
 		p.restore();
-	} else {
-		QPainterPath path;
-		path.addRoundedRect(r, radius, radius);
-		p.fillPath(path, attached_widget->palette().brush(QPalette::AlternateBase));
 	}
 
 	ripple_animation->process_ripple_draw(p, ripple_color);
@@ -73,14 +76,14 @@ QRectF ImageWidgetMaterialPaintContext::computePixmapTarget(const QSizeF& srcSiz
 	qreal sh = srcSize.height();
 	qreal bw = boxSize.width();
 	qreal bh = boxSize.height();
-	CCImageWidget* widget = dynamic_cast<CCImageWidget*>(attached_widget);
+	::CCImageWidget* widget = dynamic_cast<::CCImageWidget*>(attached_widget);
 	auto mode = widget->scale_mode();
-	if (mode == CCImageWidget::ScaleMode::Stretch)
+	if (mode == ::CCImageWidget::ScaleMode::Stretch)
 		return QRectF(0, 0, bw, bh);
 
 	const qreal sx = bw / sw;
 	const qreal sy = bh / sh;
-	const qreal scale = (mode == CCImageWidget::ScaleMode::Cover) ? qMax(sx, sy) : qMin(sx, sy);
+	const qreal scale = (mode == ::CCImageWidget::ScaleMode::Cover) ? qMax(sx, sy) : qMin(sx, sy);
 	const qreal w = sw * scale;
 	const qreal h = sh * scale;
 	return QRectF(0, 0, w, h);
@@ -101,5 +104,38 @@ void ImageWidgetMaterialPaintContext::setPixmap(const QPixmap& newPixmap) {
 	attached_widget->update();
 	ImageWidgetPaintContext::setPixmap(newPixmap);
 	pixmap_.setDevicePixelRatio(attached_widget->window()->devicePixelRatio());
+}
+
+bool ImageWidgetMaterialPaintContext::propertySettings(const QString property, const QVariant value) {
+	using namespace CCWidgetLibrary::MaterialProperty::ImageWidget;
+	if (property == StyleColor::COLORA) {
+		QColor color = value.value<QColor>();
+		if (!color.isValid()) {
+			return false;
+		}
+		colorA = color;
+		attached_widget->update();
+		return true;
+	} else if (property == StyleColor::COLORB) {
+		QColor color = value.value<QColor>();
+		if (!color.isValid()) {
+			return false;
+		}
+		colorB = color;
+		attached_widget->update();
+		return true;
+	}
+	return false;
+}
+
+std::optional<QVariant>
+ImageWidgetMaterialPaintContext::propertyGet(const QString property) {
+	using namespace CCWidgetLibrary::MaterialProperty::ImageWidget;
+	if (property == StyleColor::COLORA) {
+		return { colorA };
+	} else if (property == StyleColor::COLORB) {
+		return { colorB };
+	}
+	return std::nullopt;
 }
 }

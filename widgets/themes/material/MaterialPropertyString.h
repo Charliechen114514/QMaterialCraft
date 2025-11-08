@@ -19,6 +19,13 @@ namespace MaterialProperty {
 			// should pass QColor or int as result
 		}
 	}
+
+	namespace ImageWidget {
+		namespace StyleColor {
+			static constexpr const char* COLORA = CCImageWidget::COLORA;
+			static constexpr const char* COLORB = CCImageWidget::COLORB;
+		}
+	}
 }
 }
 

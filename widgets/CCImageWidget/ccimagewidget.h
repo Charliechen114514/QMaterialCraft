@@ -22,6 +22,14 @@ public:
 	void setPixmap(const QPixmap& pixmap);
 	QPixmap pixmap() const;
 
+	struct BlankColor {
+		QColor colorA;
+		QColor colorB;
+	};
+
+	void setEmptyImage(const BlankColor& color);
+	BlankColor emptyWhenColor() const;
+
 signals:
 	void image_loaded();
 

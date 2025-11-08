@@ -97,6 +97,7 @@ add_library(CCWidgets SHARED
   CCImageWidget/ccimagewidget.h CCImageWidget/ccimagewidget.cpp
   CCImageWidget/imagewidgetpaintcontext.h CCImageWidget/imagewidgetpaintcontext.cpp
   themes/material/imagewidgetmaterialpaintcontext.h themes/material/imagewidgetmaterialpaintcontext.cpp
+
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
