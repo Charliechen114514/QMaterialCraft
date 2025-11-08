@@ -6,6 +6,7 @@
  */
 #ifndef COMMONWIDGETSETTINGSHELPER_H
 #define COMMONWIDGETSETTINGSHELPER_H
+#include "CCWidgets_BuildDefine.h"
 
 class QWidget;
 class QLabel;
@@ -20,7 +21,7 @@ namespace WidgetHelpers {
 	 *          same as the QSS: {"background: transparent"}
 	 * @param target_widget
 	 */
-	void setWidgetBackgroundTransparent(QWidget* target_widget);
+	void CCWIDGET_EXPORT setWidgetBackgroundTransparent(QWidget* target_widget);
 
 	/**
 	 * @brief   setLabelFontWithColor will set the label font
@@ -30,10 +31,9 @@ namespace WidgetHelpers {
 	 * @param pixel_size
 	 * @param font_color
 	 */
-	void setLabelFontWithColor(QLabel* label,
-	                           const int pixel_size,
-	                           const QColor& font_color);
-
+	void CCWIDGET_EXPORT setLabelFontWithColor(QLabel* label,
+	                                           const int pixel_size,
+	                                           const QColor& font_color);
 }
 }
 
