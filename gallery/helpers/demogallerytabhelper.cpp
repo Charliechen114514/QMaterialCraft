@@ -12,6 +12,7 @@ void DemoGalleryTabHelper::init() {
 	}
 }
 
+#include "animations/appearanimationgallery.h"
 #include "buttongalleries.h"
 #include "cardgallery.h"
 #include "imagewidgetgallery.h"
@@ -23,6 +24,13 @@ void DemoGalleryTabHelper::init() {
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createAppearAnimationGalleryWidgets(attached_tabwidget),
+			std::string_view { "Appear Aniamtion" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {
