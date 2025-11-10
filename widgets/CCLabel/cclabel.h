@@ -11,6 +11,7 @@ class CCWIDGET_EXPORT CCLabel : public QLabel {
 public:
 	static constexpr const char* WIDGET_NAME = "label";
 	explicit CCLabel(QWidget* parent = nullptr);
+	explicit CCLabel(const QString& text, QWidget* parent = nullptr);
 	void setTextStyle(CCWidgetLibrary::TextStyle style);
 
 	virtual void setTextColor(const QColor& c);

@@ -14,6 +14,24 @@ CCButton::CCButton(QWidget* parentWidget)
 	}
 }
 
+CCButton::CCButton(const QString& text, QWidget* parentWidget)
+    : QPushButton(text, parentWidget) {
+	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
+	    WIDGET_NAME, this);
+	if (!paintContext) {
+		qWarning() << "failed to allocate the paintContext";
+	}
+}
+
+CCButton::CCButton(const QIcon& icon, const QString& text, QWidget* parent)
+    : QPushButton(icon, text, parent) {
+	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
+	    WIDGET_NAME, this);
+	if (!paintContext) {
+		qWarning() << "failed to allocate the paintContext";
+	}
+}
+
 CCButton::~CCButton() {
 }
 

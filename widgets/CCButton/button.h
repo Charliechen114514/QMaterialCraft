@@ -11,6 +11,8 @@ class CCWIDGET_EXPORT CCButton : public QPushButton {
 public:
 	static constexpr const char* WIDGET_NAME = "button";
 	explicit CCButton(QWidget* parentWidget = nullptr);
+	explicit CCButton(const QString& text, QWidget* parentWidget = nullptr);
+	explicit CCButton(const QIcon& icon, const QString& text, QWidget* parent = nullptr);
 	~CCButton();
 
 	void setTextColor(const QColor baseColor, bool autoContrast = false);

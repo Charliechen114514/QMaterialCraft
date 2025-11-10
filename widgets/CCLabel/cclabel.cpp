@@ -13,6 +13,15 @@ CCLabel::CCLabel(QWidget* parent)
 	}
 }
 
+CCLabel::CCLabel(const QString& text, QWidget* parent)
+    : QLabel(text, parent) {
+	paintContext = CCWidgetLibrary::PaintContextAllocator::instance().allocate_paintContext(
+	    WIDGET_NAME, this);
+	if (!paintContext) {
+		qWarning() << "failed to allocate the paintContext";
+	}
+}
+
 void CCLabel::setTextStyle(CCWidgetLibrary::TextStyle style) {
 	auto label_context = dynamic_cast<CCWidgetLibrary::LabelPaintContext*>(paintContext);
 	label_context->setTextStyle(style);
