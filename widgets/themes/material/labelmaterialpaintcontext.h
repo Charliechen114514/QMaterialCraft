@@ -1,6 +1,5 @@
 #ifndef LABELMATERIALPAINTCONTEXT_H
 #define LABELMATERIALPAINTCONTEXT_H
-#include "CCLabel/cclabel.h"
 #include "MaterialThemeMarker.h"
 #include "TextIndiator.h"
 #include "labelpaintcontext.h"
@@ -11,7 +10,6 @@ class OpacityAnimation;
 class LabelMaterialPaintContext : public LabelPaintContext,
                                   public MaterialThemeMarker {
 public:
-	static constexpr const char* LABEL_NAME = CCLabel::WIDGET_NAME;
 	LabelMaterialPaintContext(QWidget* attached_widget);
 	bool paint(QPainter& p) override;
 	void handleHoverEvent(const HoverEventType type, QEvent* ev) override;

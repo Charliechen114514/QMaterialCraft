@@ -1,6 +1,6 @@
 #include "labelmaterialpaintcontext.h"
+#include "helpers/animations/opacityanimation.h"
 #include "paintcontextallocator.h"
-#include "themes/material/animation_wrapper/opacityanimation.h"
 #include <QLabel>
 #include <QPainter>
 

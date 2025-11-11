@@ -1,7 +1,8 @@
 #include "imagewidgetmaterialpaintcontext.h"
+#include "CCImageWidget/ccimagewidget.h"
 #include "MaterialPropertyString.h"
-#include "animation_wrapper/opacityanimation.h"
-#include "animation_wrapper/rippleanimation.h"
+#include "helpers/animations/opacityanimation.h"
+#include "helpers/animations/rippleanimation.h"
 #include <QPainter>
 #include <QPainterPath>
 namespace CCWidgetLibrary {

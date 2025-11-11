@@ -18,12 +18,22 @@ set(COMMON_SRC
   Commons/colorhelper.h Commons/colorhelper.cpp
   Commons/context_request_macros.h
   Commons/animation_helpers.h Commons/animation_helpers.cpp
-  setups/paintcontextregisters.h setups/paintcontextregisters.cpp
+  Commons/containercommondelegate.h Commons/containercommondelegate.cpp
+  setups/paintcontextregisters.h setups/material/materialpaintcontextregisters.cpp
   Commons/property_string.h
   helpers/commonwidgetsettingshelper.h helpers/commonwidgetsettingshelper.cpp
   helpers/widgetlayouthelper.h helpers/widgetlayouthelper.cpp
+  helpers/animations/hoveranimationhelper.h helpers/animations/hoveranimationhelper.cpp
+  helpers/animations/shadowoffsetsanimationhelper.h helpers/animations/shadowoffsetsanimationhelper.cpp
+  helpers/animations/rippleanimation.h helpers/animations/rippleanimation.cpp
+  helpers/animations/opacityanimation.h helpers/animations/opacityanimation.cpp
+  helpers/animations/floativeanimation.h helpers/animations/floativeanimation.cpp
   CCWidgets_BuildDefine.h
   Commons/TextIndiator.h
+  helpers/animations/appearanimation.h
+  helpers/animations/appearanimation.cpp
+  helpers/animations/commons.h
+  helpers/animations/commons.cpp
 )
 
 set(CCSlider_SRC
@@ -65,15 +75,10 @@ set(THEME_SUPPORT_SRC
   themes/material/MaterialThemeMarker.h
   themes/material/buttonmaterialpaintcontext.h
   themes/material/buttonmaterialpaintcontext.cpp
-  themes/material/animation_wrapper/hoveranimationhelper.h themes/material/animation_wrapper/hoveranimationhelper.cpp
-  themes/material/animation_wrapper/shadowoffsetsanimationhelper.h themes/material/animation_wrapper/shadowoffsetsanimationhelper.cpp
-  themes/material/animation_wrapper/rippleanimation.h themes/material/animation_wrapper/rippleanimation.cpp
   themes/material/materialtextindicator.h themes/material/materialtextindicator.cpp
   themes/material/MaterialPropertyString.h
   themes/material/labelmaterialpaintcontext.h themes/material/labelmaterialpaintcontext.cpp
-  themes/material/animation_wrapper/opacityanimation.h themes/material/animation_wrapper/opacityanimation.cpp
   themes/material/labelbadgematerialpaintcontext.h themes/material/labelbadgematerialpaintcontext.cpp
-  themes/material/animation_wrapper/floativeanimation.h themes/material/animation_wrapper/floativeanimation.cpp
   themes/material/progressbarmaterialpaintcontext.h themes/material/progressbarmaterialpaintcontext.cpp
   themes/material/components/cardmaterialpaintcontext.h themes/material/components/cardmaterialpaintcontext.cpp
   themes/material/components/cctextfieldmaterialpaintcontext.h themes/material/components/cctextfieldmaterialpaintcontext.cpp
@@ -98,10 +103,27 @@ add_library(CCWidgets SHARED
   CCImageWidget/ccimagewidget.h CCImageWidget/ccimagewidget.cpp
   CCImageWidget/imagewidgetpaintcontext.h CCImageWidget/imagewidgetpaintcontext.cpp
   themes/material/imagewidgetmaterialpaintcontext.h themes/material/imagewidgetmaterialpaintcontext.cpp
-  helpers/animations/appearanimation.h helpers/animations/appearanimation.cpp
-  helpers/animations/commons.h
-  helpers/animations/commons.cpp
-
+  Composers/CCTreeWidget/cctreewidget.h Composers/CCTreeWidget/cctreewidget.cpp
+  Composers/CCTreeWidget/treewidgetpaintcontext.h Composers/CCTreeWidget/treewidgetpaintcontext.cpp
+  Composers/privates/containerpaintcontext.h Composers/privates/containerpaintcontext.cpp
+  themes/material/delegates/materialcontainercommondelegate.h themes/material/delegates/materialcontainercommondelegate.cpp
+  setups/material/materialpaintcontextregisters.h
+  setups/paintcontextregisters.cpp
+  Composers/privates/container_delegates_keys.h
+  Commons/context_request_headers.h
+  themes/material/materialtreewidgetpaintcontext.h themes/material/materialtreewidgetpaintcontext.cpp
+  themes/material/commons/materialcontainerdefaultpaintcontext.h themes/material/commons/materialcontainerdefaultpaintcontext.cpp
+  themes/material/materiallistviewpaintcontext.cpp themes/material/materiallistviewpaintcontext.h themes/material/materiallistwidgetpaintcontext.cpp themes/material/materiallistwidgetpaintcontext.h themes/material/materialtableviewpaintcontext.cpp themes/material/materialtableviewpaintcontext.h themes/material/materialtablewidgetpaintcontext.cpp themes/material/materialtablewidgetpaintcontext.h themes/material/materialtreeviewpaintcontext.cpp themes/material/materialtreeviewpaintcontext.h
+  Composers/CCTreeView/cctreeview.h Composers/CCTreeView/cctreeview.cpp
+  Composers/CCTableWidget/cctablewidget.h Composers/CCTableWidget/cctablewidget.cpp
+  Composers/CCTableView/cctableview.h Composers/CCTableView/cctableview.cpp
+  Composers/CCListView/cclistview.h Composers/CCListView/cclistview.cpp
+  Composers/CCListWidget/cclistwidget.h Composers/CCListWidget/cclistwidget.cpp
+  Composers/CCTreeView/treeviewpaintcontext.h Composers/CCTreeView/treeviewpaintcontext.cpp
+  Composers/CCTableWidget/tablewidgetpaintcontext.h Composers/CCTableWidget/tablewidgetpaintcontext.cpp
+  Composers/CCTableView/tableviewpaintcontext.h Composers/CCTableView/tableviewpaintcontext.cpp
+  Composers/CCListWidget/listwidgetpaintcontext.h Composers/CCListWidget/listwidgetpaintcontext.cpp
+  Composers/CCListView/listviewpaintcontext.h Composers/CCListView/listviewpaintcontext.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)

@@ -4,16 +4,18 @@
 #include "TextIndiator.h"
 #include "paintcontext.h"
 #include <QMap>
-
+class QAbstractItemView;
 namespace CCWidgetLibrary {
+class ContainerCommonDelegate;
+
 class CCWIDGET_EXPORT PaintContextAllocator : public QObject {
 	Q_OBJECT
 public:
 	friend class PaintContextRegisters;
 	static PaintContextAllocator& instance();
-
+	static void setThemes(const QString& themes /* Unused Current */);
 	using RegisterActor = std::function<PaintContext*(QWidget*)>;
-
+	using DelegateRegisterActor = std::function<ContainerCommonDelegate*(QAbstractItemView*)>;
 	enum class ActPolicy {
 		AUTO,
 		MANUAL
@@ -29,6 +31,15 @@ public:
 	void runRegister(const QString& paintContextName,
 	                 RegisterActor actor, ActPolicy policy = ActPolicy::AUTO);
 
+	void runDelegateRegister(const QString& delegateName,
+	                         DelegateRegisterActor actor,
+	                         ActPolicy policy = ActPolicy::AUTO);
+
+	ContainerCommonDelegate* allocate_delegate(
+	    const QString& delegate_name,
+	    QAbstractItemView* view,
+	    ActPolicy policy = ActPolicy::AUTO);
+
 signals:
 	void styleChanged(QString current_style);
 
@@ -39,6 +50,7 @@ private:
 	QString composed_style(const QString& widget_name);
 	std::unique_ptr<TextIndiator> textIndicator;
 	QMap<QString, RegisterActor> factory;
+	QMap<QString, DelegateRegisterActor> delegate_factory;
 	QString current_style;
 };
 }

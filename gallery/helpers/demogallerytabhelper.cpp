@@ -17,13 +17,37 @@ void DemoGalleryTabHelper::init() {
 #include "cardgallery.h"
 #include "imagewidgetgallery.h"
 #include "labelgallery.h"
+#include "list_vw_gallery.h"
 #include "progressbargallery.h"
 #include "slidergallery.h"
+#include "tabel_vw_gallery.h"
 #include "textfieldgallery.h"
 #include "textgallery.h"
+#include "tree_wv_gallery.h"
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createTableViewWidgetGallery(attached_tabwidget),
+			std::string_view { "Table View/Widgets" }
+		};
+	});
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createListViewWidgetGallery(attached_tabwidget),
+			std::string_view { "List View/Widgets" }
+		};
+	});
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createTreeViewWidgetGallery(attached_tabwidget),
+			std::string_view { "Tree View/Widgets" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {

@@ -16,9 +16,50 @@ void PaintContextAllocator::runRegister(
 	factory.insert(check, actor);
 }
 
+void PaintContextAllocator::runDelegateRegister(const QString& delegateName,
+                                                DelegateRegisterActor actor,
+                                                ActPolicy policy) {
+	QString check;
+	switch (policy) {
+	case ActPolicy::AUTO:
+		check = composed_style(delegateName);
+		break;
+	case ActPolicy::MANUAL:
+		check = delegateName;
+		break;
+	}
+	delegate_factory.insert(check, actor);
+}
+
+ContainerCommonDelegate* PaintContextAllocator::allocate_delegate(
+    const QString& delegate_name, QAbstractItemView* view, ActPolicy policy) {
+	QString check;
+	switch (policy) {
+	case ActPolicy::AUTO:
+		check = composed_style(delegate_name);
+		break;
+	case ActPolicy::MANUAL:
+		check = delegate_name;
+		break;
+	}
+
+	auto factor = delegate_factory.find(check);
+	if (factor == delegate_factory.end()) {
+		return nullptr;
+	}
+	return (*factor)(view);
+}
+
 PaintContextAllocator& PaintContextAllocator::instance() {
 	static PaintContextAllocator _inst;
 	return _inst;
+}
+
+void PaintContextAllocator::setThemes(const QString& themes) {
+	PaintContextRegisters* application_registers = factorize_registers("Dummy", instance());
+	application_registers->registersMemoryDefaults();
+	application_registers->registerDelegates();
+	application_registers->register_indicator();
 }
 
 void PaintContextAllocator::setStyles(const QString& current_style) {
@@ -51,8 +92,10 @@ PaintContext* PaintContextAllocator::allocate_paintContext(
 
 PaintContextAllocator::PaintContextAllocator()
     : QObject {} {
-	PaintContextRegisters::registersMemoryDefaults(*this);
-	PaintContextRegisters::getTextIndicator(*this);
+	PaintContextRegisters* application_registers = factorize_registers("Dummy", *this);
+	application_registers->registersMemoryDefaults();
+	application_registers->registerDelegates();
+	application_registers->register_indicator();
 }
 
 QString PaintContextAllocator::composed_style(const QString& widget_name) {

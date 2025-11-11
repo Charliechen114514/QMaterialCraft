@@ -1,8 +1,9 @@
 #include "buttonmaterialpaintcontext.h"
-#include "animation_wrapper/floativeanimation.h"
-#include "animation_wrapper/hoveranimationhelper.h"
-#include "animation_wrapper/rippleanimation.h"
-#include "animation_wrapper/shadowoffsetsanimationhelper.h"
+#include "MaterialPropertyString.h"
+#include "helpers/animations/floativeanimation.h"
+#include "helpers/animations/hoveranimationhelper.h"
+#include "helpers/animations/rippleanimation.h"
+#include "helpers/animations/shadowoffsetsanimationhelper.h"
 #include "themes/material/material_color_helper.h"
 #include <QGraphicsDropShadowEffect>
 #include <QLayout>
@@ -11,6 +12,7 @@
 #include <QPainterPath>
 #include <QPushButton>
 #include <QVariantAnimation>
+
 namespace CCWidgetLibrary {
 ButtonMaterialPaintContext::ButtonMaterialPaintContext(QPushButton* button)
     : ButtonPaintContext(button) {
@@ -240,8 +242,6 @@ void ButtonMaterialPaintContext::drawIconAndText(QPainter& p) {
 	p.setPen(textColor_);
 	p.drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, txt);
 }
-
-#include "MaterialPropertyString.h"
 
 bool ButtonMaterialPaintContext::propertySettings(const QString property, const QVariant value) {
 	using namespace CCWidgetLibrary::MaterialProperty::Button::Style;

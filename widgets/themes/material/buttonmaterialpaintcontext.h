@@ -1,7 +1,6 @@
 #ifndef BUTTONMATERIALPAINTCONTEXT_H
 #define BUTTONMATERIALPAINTCONTEXT_H
 
-#include "button.h"
 #include "buttonpaintcontext.h"
 #include "paintcontext.h"
 #include "themes/material/MaterialThemeMarker.h"
@@ -25,7 +24,6 @@ class ButtonMaterialPaintContext : public ButtonPaintContext,
 	static constexpr const float RADIUS_PERCENTAGE = 0.1;
 
 public:
-	static constexpr const char* BUTTON_NAME = CCButton::WIDGET_NAME;
 	ButtonMaterialPaintContext(QPushButton* attached_widget = nullptr);
 	~ButtonMaterialPaintContext();
 

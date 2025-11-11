@@ -1,7 +1,7 @@
 #include "progressbarmaterialpaintcontext.h"
+#include "helpers/animations/hoveranimationhelper.h"
+#include "helpers/animations/rippleanimation.h"
 #include "material_color_helper.h"
-#include "themes/material/animation_wrapper/hoveranimationhelper.h"
-#include "themes/material/animation_wrapper/rippleanimation.h"
 #include <QPainter>
 #include <QProgressBar>
 

@@ -54,6 +54,20 @@
 		paintContext->handleMouseEvent(CCWidgetLibrary::MouseEventType::MOUSE_MOVE, event);    \
 	}
 
+#define CONTEXT_MOUSE_IMPL_REQUEST_CALL_OLD(ClassName, OrgClass)                               \
+	void ClassName::mousePressEvent(QMouseEvent* event) {                                      \
+		paintContext->handleMouseEvent(CCWidgetLibrary::MouseEventType::MOUSE_PRESS, event);   \
+		OrgClass::mousePressEvent(event);                                                      \
+	}                                                                                          \
+	void ClassName::mouseReleaseEvent(QMouseEvent* event) {                                    \
+		paintContext->handleMouseEvent(CCWidgetLibrary::MouseEventType::MOUSE_RELEASE, event); \
+		OrgClass::mouseReleaseEvent(event);                                                    \
+	}                                                                                          \
+	void ClassName::mouseMoveEvent(QMouseEvent* event) {                                       \
+		paintContext->handleMouseEvent(CCWidgetLibrary::MouseEventType::MOUSE_MOVE, event);    \
+		OrgClass::mouseMoveEvent(event);                                                       \
+	}
+
 #define CONTEXT_RESIZE_IMPL(ClassName)                 \
 	void ClassName::resizeEvent(QResizeEvent* event) { \
 		paintContext->handleResizeEvent(event);        \
@@ -66,6 +80,18 @@
 			OrgClass::paintEvent(event);                              \
 		} else {                                                      \
 			QPainter painter(this);                                   \
+			paintContext->paint(painter);                             \
+		}                                                             \
+	}
+
+#define CONTEXT_PAINT_IMPL_WITH_OLD(ClassName, OrgClass)              \
+	void ClassName::paintEvent(QPaintEvent* event) {                  \
+		if (!paintContext) {                                          \
+			qWarning() << "paintContext NULL, use the default paint"; \
+			OrgClass::paintEvent(event);                              \
+		} else {                                                      \
+			QPainter painter(this);                                   \
+			OrgClass::paintEvent(event);                              \
 			paintContext->paint(painter);                             \
 		}                                                             \
 	}

@@ -1,18 +1,17 @@
 #ifndef SLIDERMATERIALPAINTCONTEXT_H
 #define SLIDERMATERIALPAINTCONTEXT_H
-#include "CCSlider/slider.h"
 #include "CCSlider/sliderpaintcontext.h"
 #include "animation_helpers.h"
 
 #include "themes/material/MaterialThemeMarker.h"
-#include "themes/material/animation_wrapper/rippleanimation.h"
 #include <QColor>
 #include <QObject>
 class QPropertyAnimation;
 class QVariantAnimation;
+class QSlider;
 
 namespace CCWidgetLibrary {
-
+class RippleAnimation;
 struct MaterialSliderHelpers {
 	static QColor autoTrackColor(const QColor& thumbColor) noexcept;
 	static QColor autoThumbColor(const QColor& trackColor) noexcept;
@@ -26,7 +25,6 @@ class SliderMaterialPaintContext : public SliderPaintContext,
 	               NOTIFY knobRadiusChanged)
 
 public:
-	static constexpr const char* SLIDER_NAME = CCSlider::WIDGET_NAME;
 	static constexpr const float PRESSED_STREEED = 1.3;
 	static constexpr const float UNPRESSED_STREEED = 1.1;
 

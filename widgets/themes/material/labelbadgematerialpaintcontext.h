@@ -1,13 +1,10 @@
 #ifndef LABELBADGEMATERIALPAINTCONTEXT_H
 #define LABELBADGEMATERIALPAINTCONTEXT_H
-
-#include "ccbadgelabel.h"
 #include <QColor>
 #include <labelpaintcontext.h>
 namespace CCWidgetLibrary {
 class LabelBadgeMaterialPaintContext : public LabelPaintContext {
 public:
-	static constexpr const char* WIDGET_NAME = CCBadgeLabel::WIDGET_NAME;
 	LabelBadgeMaterialPaintContext(QWidget* attached_parent);
 	bool paint(QPainter& p) override;
 	void setTextStyle(TextStyle style) override;

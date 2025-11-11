@@ -1,15 +1,15 @@
 #include "slidermaterialpaintcontext.h"
+#include "helpers/animations/rippleanimation.h"
 #include "material_color_helper.h"
+#include "slider.h"
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QVariantAnimation>
 #include <QWidget>
-
 namespace CCWidgetLibrary {
 
 SliderMaterialPaintContext::SliderMaterialPaintContext(QSlider* widget)
     : SliderPaintContext(widget) {
-	_context_name = SLIDER_NAME;
 	attached_widget->setMouseTracking(true);
 
 	pressedColor = MaterialSliderHelpers::pressedColor(knobColor);

@@ -1,7 +1,6 @@
 #ifndef CCTEXTFIELDMATERIALPAINTCONTEXT_H
 #define CCTEXTFIELDMATERIALPAINTCONTEXT_H
 
-#include "CCTextField/cctextfield.h"
 #include "CCTextField/cctextfieldpaintcontext.h"
 #include "animation_helpers.h"
 #include "themes/material/MaterialThemeMarker.h"
@@ -17,7 +16,6 @@ class CCTextFieldMaterialPaintContext : public CCTextFieldPaintContext,
 	Q_PROPERTY(qreal underlineProgress READ underlineProgress
 	               WRITE setUnderlineProgress NOTIFY underlineProgressChanged FINAL)
 public:
-	static constexpr const char* WIDGET_NAME = CCTextField::WIDGET_NAME;
 	static constexpr const short DURATION = 180;
 	CCTextFieldMaterialPaintContext(CCTextField* attached_widget);
 

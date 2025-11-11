@@ -1,15 +1,13 @@
 #ifndef CARDMATERIALPAINTCONTEXT_H
 #define CARDMATERIALPAINTCONTEXT_H
 #include "../MaterialThemeMarker.h"
-#include "../animation_wrapper/floativeanimation.h"
-#include "../animation_wrapper/shadowoffsetsanimationhelper.h"
+#include "helpers/animations/floativeanimation.h"
+#include "helpers/animations/shadowoffsetsanimationhelper.h"
 #include "paintcontext.h"
-#include "privates/cccard_components_name.h"
 namespace CCWidgetLibrary {
 class CardMaterialPaintContext : public PaintContext,
                                            public MaterialThemeMarker {
 public:
-	static constexpr const char* WIDGET_NAME = Card::WIDGET_NAME;
 	CardMaterialPaintContext(QWidget* attached_parent);
 
 	bool paint(QPainter& p) override;
