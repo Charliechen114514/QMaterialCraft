@@ -1,8 +1,8 @@
 #include "button.h"
+#include "buttonpaintcontext.h"
 #include "paintcontext.h"
 #include "paintcontextallocator.h"
 #include "property_string.h"
-#include "themes/material/buttonmaterialpaintcontext.h"
 #include <QEnterEvent>
 #include <QPainter>
 CCButton::CCButton(QWidget* parentWidget)

@@ -3,6 +3,8 @@
 #include "CCImageWidget/ccimagewidget.h"
 #include "CCProgressBar/progressbar.h"
 #include "CCTextField/cctextfield.h"
+#include "CCToolBox/cctoolbox.h"
+#include "CCToolButton/cctoolbutton.h"
 #include "Composers/CCListView/cclistview.h"
 #include "Composers/CCListWidget/cclistwidget.h"
 #include "Composers/CCTableView/cctableview.h"
@@ -30,6 +32,8 @@
 #include "themes/material/materialtreewidgetpaintcontext.h"
 #include "themes/material/progressbarmaterialpaintcontext.h"
 #include "themes/material/slidermaterialpaintcontext.h"
+#include "themes/material/toolbox/materialtoolboxpaintcontext.h"
+#include "themes/material/toolbuttonmaterialpaintcontext.h"
 #include <QPushButton>
 #include <QSlider>
 namespace CCWidgetLibrary {
@@ -80,6 +84,14 @@ void MaterialPaintContextRegisters::
 
 	inst.runRegister(CCTableView::WIDGET_NAME, [](QWidget* who) {
 		return new MaterialTableViewPaintContext(dynamic_cast<QTableView*>(who));
+	});
+
+	inst.runRegister(CCToolButton::WIDGET_NAME, [](QWidget* who) {
+		return new MaterialToolButtonPaintContext(dynamic_cast<QToolButton*>(who));
+	});
+
+	inst.runRegister(CCToolBox::WIDGET_NAME, [](QWidget* who) {
+		return new MaterialToolBoxPaintContext(dynamic_cast<QToolBox*>(who));
 	});
 }
 

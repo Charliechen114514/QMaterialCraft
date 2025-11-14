@@ -73,6 +73,12 @@
 		paintContext->handleResizeEvent(event);        \
 	}
 
+#define CONTEXT_RESIZE_IMPL_WITH_OLD(ClassName, OrgClass) \
+	void ClassName::resizeEvent(QResizeEvent* event) {    \
+		OrgClass::resizeEvent(event);                     \
+		paintContext->handleResizeEvent(event);           \
+	}
+
 #define CONTEXT_PAINT_IMPL(ClassName, OrgClass)                       \
 	void ClassName::paintEvent(QPaintEvent* event) {                  \
 		if (!paintContext) {                                          \

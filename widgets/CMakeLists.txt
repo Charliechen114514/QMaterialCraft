@@ -90,6 +90,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
@@ -124,11 +125,19 @@ add_library(CCWidgets SHARED
   Composers/CCTableView/tableviewpaintcontext.h Composers/CCTableView/tableviewpaintcontext.cpp
   Composers/CCListWidget/listwidgetpaintcontext.h Composers/CCListWidget/listwidgetpaintcontext.cpp
   Composers/CCListView/listviewpaintcontext.h Composers/CCListView/listviewpaintcontext.cpp
+  CCToolButton/cctoolbutton.h CCToolButton/cctoolbutton.cpp
+  CCToolButton/toolbuttonpaintcontext.h CCToolButton/toolbuttonpaintcontext.cpp
+  themes/material/toolbuttonmaterialpaintcontext.h themes/material/toolbuttonmaterialpaintcontext.cpp
+  CCToolBox/cctoolbox.h CCToolBox/cctoolbox.cpp
+  CCToolBox/toolboxpaintcontext.h CCToolBox/toolboxpaintcontext.cpp
+  themes/material/toolbox/materialtoolboxpaintcontext.h themes/material/toolbox/materialtoolboxpaintcontext.cpp
+  themes/material/toolbox/materialheaderbar.h themes/material/toolbox/materialheaderbar.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 target_link_libraries(CCWidgets PRIVATE Qt6::Core)
+target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 
 target_include_directories(CCWidgets PUBLIC .
   Commons CCSlider CCButton CCCards CCLabel CCProgressBar)

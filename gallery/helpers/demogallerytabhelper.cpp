@@ -1,4 +1,5 @@
 #include "demogallerytabhelper.h"
+#include "toolboxgallery.h"
 #include <QTabWidget>
 
 void DemoGalleryTabHelper::addRegistries(WidgetGalleryRegistry register_func) {
@@ -23,10 +24,25 @@ void DemoGalleryTabHelper::init() {
 #include "tabel_vw_gallery.h"
 #include "textfieldgallery.h"
 #include "textgallery.h"
+#include "toolbuttongallery.h"
 #include "tree_wv_gallery.h"
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createToolBoxGalleryWidgets(attached_tabwidget),
+			std::string_view { "ToolBox" }
+		};
+	});
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createToolButtonGalleryWidgets(attached_tabwidget),
+			std::string_view { "ToolButton" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {
