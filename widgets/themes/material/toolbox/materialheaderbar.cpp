@@ -41,7 +41,7 @@ MaterialHeaderBar::MaterialHeaderBar(QWidget* parent)
 	buttonsLayouts->setSpacing(6);
 	buttonsLayouts->addStretch();
 	indicator = new IndicatorWidget(this);
-	indicator->setFixedHeight(5);
+	indicator->setFixedHeight(3);
 	indicator->raise();
 
 	geometry_animation = new AnimationHolder(indicator, "geometry");
