@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPainter>
+#include <QTextLayout>
 
 namespace CCWidgetLibrary {
 MaterialContainerCommonDelegate::MaterialContainerCommonDelegate(QObject* parent)
@@ -11,10 +12,56 @@ MaterialContainerCommonDelegate::MaterialContainerCommonDelegate(QObject* parent
 QSize MaterialContainerCommonDelegate::sizeHint(
     const QStyleOptionViewItem& option,
     const QModelIndex& index) const {
-	QSize s = QStyledItemDelegate::sizeHint(option, index);
-	// get the expected height or the icons + paddings
-	s.setHeight(qMax(s.height(), iconSize_ + padding_));
-	return s;
+	QStyleOptionViewItem opt(option);
+	initStyleOption(&opt, index);
+
+	const QString text = opt.text;
+	const QFont font = opt.font;
+
+	const int pad = padding_;
+	constexpr int iconGap = 8;
+	constexpr int checkboxWidth = 22;
+	constexpr int minHeight = 24;
+
+	int viewWidth = option.rect.width();
+	if (viewWidth <= 0 && option.widget)
+		viewWidth = option.widget->width();
+	if (viewWidth <= 0)
+		viewWidth = 200; // 最后一手回退，防止除以 0
+
+	int used = pad * 2; // 左右 padding
+	if (index.data(Qt::DecorationRole).isValid())
+		used += iconSize_ + iconGap;
+	if (index.flags() & Qt::ItemIsUserCheckable)
+		used += checkboxWidth;
+
+	int availWidth = viewWidth - used;
+	if (availWidth < 20)
+		availWidth = 20; // 防止非常小
+
+	QTextLayout layout(text, font);
+	QTextOption to;
+	to.setWrapMode(QTextOption::WordWrap);
+	layout.setTextOption(to);
+
+	layout.beginLayout();
+	qreal textHeight = 0;
+	int lineCount = 0;
+	while (true) {
+		QTextLine line = layout.createLine();
+		if (!line.isValid())
+			break;
+		line.setLineWidth(availWidth);
+		++lineCount;
+		textHeight += line.height();
+	}
+	layout.endLayout();
+
+	int totalH = qCeil(textHeight) + pad * 2;
+	if (totalH < minHeight)
+		totalH = minHeight;
+
+	return QSize(viewWidth, totalH);
 }
 
 void MaterialContainerCommonDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const {
@@ -69,8 +116,18 @@ void MaterialContainerCommonDelegate::paint(QPainter* painter, const QStyleOptio
 	}
 
 	QRect textRect(x, rect.y(), rect.width() - (x - rect.x()) - padding_, rect.height());
-	painter->setPen(selected ? opt.palette.color(QPalette::HighlightedText) : opt.palette.color(QPalette::Text));
-	painter->drawText(textRect, Qt::AlignVCenter | Qt::AlignLeft, index.data(Qt::DisplayRole).toString());
+	painter->setFont(opt.font);
+	QString text = opt.text;
+
+	QTextOption to;
+	to.setWrapMode(QTextOption::WordWrap);
+	to.setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+	painter->setPen(selected
+	                    ? opt.palette.color(QPalette::HighlightedText)
+	                    : opt.palette.color(QPalette::Text));
+
+	painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextWordWrap, text);
 	painter->restore();
 }
 
