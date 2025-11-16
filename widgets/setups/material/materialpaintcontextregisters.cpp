@@ -1,4 +1,5 @@
 #include "materialpaintcontextregisters.h"
+#include "CCCalendarWidget/cccalendarwidget.h"
 #include "CCCards/cccard.h"
 #include "CCImageWidget/ccimagewidget.h"
 #include "CCProgressBar/progressbar.h"
@@ -17,6 +18,7 @@
 #include "slider.h"
 #include "themes/material/MaterialThemeMarker.h"
 #include "themes/material/buttonmaterialpaintcontext.h"
+#include "themes/material/calendar/calendarwidgetmaterialpaintcontext.h"
 #include "themes/material/components/cardmaterialpaintcontext.h"
 #include "themes/material/components/cctextfieldmaterialpaintcontext.h"
 #include "themes/material/delegates/materialcontainercommondelegate.h"
@@ -92,6 +94,9 @@ void MaterialPaintContextRegisters::
 
 	inst.runRegister(CCToolBox::WIDGET_NAME, [](QWidget* who) {
 		return new MaterialToolBoxPaintContext(dynamic_cast<QToolBox*>(who));
+	});
+	inst.runRegister(CCCalendarWidget::WIDGET_NAME, [](QWidget* who) {
+		return new MaterialCalendarWidgetPaintContext(dynamic_cast<CCCalendarWidget*>(who));
 	});
 }
 

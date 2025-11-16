@@ -42,6 +42,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         gallery/helpers/list_vw_gallery.h gallery/helpers/list_vw_gallery.cpp
         gallery/helpers/toolbuttongallery.h gallery/helpers/toolbuttongallery.cpp
         gallery/helpers/toolboxgallery.h gallery/helpers/toolboxgallery.cpp
+        gallery/helpers/calendarwidgetgallery.h gallery/helpers/calendarwidgetgallery.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CCWidgetLibrary APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

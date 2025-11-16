@@ -15,6 +15,7 @@ void DemoGalleryTabHelper::init() {
 
 #include "animations/appearanimationgallery.h"
 #include "buttongalleries.h"
+#include "calendarwidgetgallery.h"
 #include "cardgallery.h"
 #include "imagewidgetgallery.h"
 #include "labelgallery.h"
@@ -29,6 +30,13 @@ void DemoGalleryTabHelper::init() {
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createCalendarGallery(attached_tabwidget),
+			std::string_view { "CalendarWidget" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {

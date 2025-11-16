@@ -132,6 +132,9 @@ add_library(CCWidgets SHARED
   CCToolBox/toolboxpaintcontext.h CCToolBox/toolboxpaintcontext.cpp
   themes/material/toolbox/materialtoolboxpaintcontext.h themes/material/toolbox/materialtoolboxpaintcontext.cpp
   themes/material/toolbox/materialheaderbar.h themes/material/toolbox/materialheaderbar.cpp
+  CCCalendarWidget/cccalendarwidget.h CCCalendarWidget/cccalendarwidget.cpp
+  CCCalendarWidget/calendarwidgetpaintcontext.h CCCalendarWidget/calendarwidgetpaintcontext.cpp
+  themes/material/calendar/calendarwidgetmaterialpaintcontext.h themes/material/calendar/calendarwidgetmaterialpaintcontext.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
