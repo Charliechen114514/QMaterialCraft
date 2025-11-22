@@ -12,7 +12,6 @@ public:
 	explicit CCCalendarWidget(QWidget* parent = nullptr);
 
 protected:
-	CONTEXT_PAINT_PAINTEVENT_REQUEST_OVERRIDE;
 	void paintCell(QPainter* painter, const QRect& rect, QDate date) const override;
 
 private:
