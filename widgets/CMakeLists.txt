@@ -91,6 +91,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_library(CCWidgets SHARED
   ${THEME_SUPPORT_SRC}
@@ -135,11 +138,18 @@ add_library(CCWidgets SHARED
   CCCalendarWidget/cccalendarwidget.h CCCalendarWidget/cccalendarwidget.cpp
   CCCalendarWidget/calendarwidgetpaintcontext.h CCCalendarWidget/calendarwidgetpaintcontext.cpp
   themes/material/calendar/calendarwidgetmaterialpaintcontext.h themes/material/calendar/calendarwidgetmaterialpaintcontext.cpp
+
+  CCMarkdownWidget/privates/markdownhighlighter.h CCMarkdownWidget/privates/markdownhighlighter.cpp
+  CCMarkdownWidget/cmarkdowncardwidget.h CCMarkdownWidget/cmarkdowncardwidget.cpp
+  CCMarkdownWidget/ccmarkdownbrowserwidget.h CCMarkdownWidget/ccmarkdownbrowserwidget.cpp
 )
 
 target_link_libraries(CCWidgets PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 target_link_libraries(CCWidgets PRIVATE Qt6::Core)
+target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
+target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
+target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 target_link_libraries(CCWidgets PRIVATE Qt6::Widgets)
 
 target_include_directories(CCWidgets PUBLIC .

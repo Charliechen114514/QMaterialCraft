@@ -20,6 +20,7 @@ void DemoGalleryTabHelper::init() {
 #include "imagewidgetgallery.h"
 #include "labelgallery.h"
 #include "list_vw_gallery.h"
+#include "markdownbrowsergallery.h"
 #include "progressbargallery.h"
 #include "slidergallery.h"
 #include "tabel_vw_gallery.h"
@@ -30,6 +31,13 @@ void DemoGalleryTabHelper::init() {
 DemoGalleryTabHelper::DemoGalleryTabHelper(QTabWidget* parent)
     : QObject { parent } {
 	attached_tabwidget = parent;
+
+	addRegistries([this]() {
+		return std::pair {
+			Gallery::createMarkdownBrowserGalleryWidgets(attached_tabwidget),
+			std::string_view { "Markdown Browser" }
+		};
+	});
 
 	addRegistries([this]() {
 		return std::pair {
